@@ -163,7 +163,7 @@ that can be processed by the _invoker thread_ once all tasks complete.
 
 One such case would be an entity wanting to move from one region to another.
 Since entities are stored on the `Region` object, `World` could have a
-teleport queue where tasks could add `TeleportRequest`. These could be processed
+teleport queue where tasks could add `TeleportRequest`s. These could be processed
 on the `tick()` method after `computeAll` returns.
 
 ## Resources
