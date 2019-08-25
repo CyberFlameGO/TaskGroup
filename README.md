@@ -18,7 +18,7 @@ have not completed are cancelled.
 The project's idea came from Paper's [Regionized Entity Ticking](https://github.com/PaperMC/Paper/issues/1001) 
 issue, and Aikar's [ParaTask](https://github.com/aikar/paratask) WIP project.
 Operations like ticking (i.e. updating) a game world are perfect candidates for
-parallelization since work can be split up into task that update a specific
+parallelization since work can be split up into tasks that update a specific
 region of the world.
 
 More generally, a `TaskGroupExecutor` is designed to run homogeneous tasks
@@ -76,7 +76,7 @@ You will need to have Java 8 or later (older versions _might_ work).
 
 As an example, we're going to create a parallel world ticker based on regions.
 First, we need to create the `TaskGroupExecutor`. Currently, TaskGroup only
-provides one implementation based on a [`ForkJoinPool`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html),
+provides one implementation based on [`ForkJoinPool`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html),
 the [`TaskGroupStealingExecutor`](https://jitpack.io/com/github/hugmanrique/TaskGroup/master-SNAPSHOT/javadoc/me/hugmanrique/taskgroup/workstealing/TaskGroupStealingExecutor.html):
 
 ```java
@@ -149,10 +149,10 @@ public class World {
 ```
 
 The `computeAll` method will submit all tick tasks to a thread pool,
-returning a list holding their results when all complete successfully.
+returning a list holding their results when they all complete successfully.
 If any tick task throws an unchecked exception or `Error`, tasks
 that have not completed are cancelled and a `ExecutionException` wrapping
-the thrown exception is thrown.
+the unchecked exception is thrown.
 
 ## Shared state
 
@@ -163,8 +163,8 @@ that can be processed by the _invoker thread_ once all tasks complete.
 
 One such case would be an entity wanting to move from one region to another.
 Since entities are stored on the `Region` object, `World` could have a
-teleport queue where tasks could add `TeleportRequest`s which are processed
-on the `tick()` method after `computeAll` returns. 
+teleport queue where tasks could add `TeleportRequest`. These could be processed
+on the `tick()` method after `computeAll` returns.
 
 ## Resources
 
