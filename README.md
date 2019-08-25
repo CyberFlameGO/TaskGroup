@@ -16,7 +16,7 @@ will schedule them in a thread pool, blocking until all complete successfully
 have not completed are cancelled.
 
 The project's idea came from Paper's [Regionized Entity Ticking](https://github.com/PaperMC/Paper/issues/1001) 
-issue, and Aikar's [ParaTask](https://github.com/aikar/paratask) unfinished project.
+issue, and Aikar's [ParaTask](https://github.com/aikar/paratask) WIP project.
 Operations like ticking (i.e. updating) a game world are perfect candidates for
 parallelization since work can be split up into task that update a specific
 region of the world.
