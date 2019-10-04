@@ -3,7 +3,8 @@ language: java
 jdk:
   - openjdk11
 
-script: mvn test -B -Dgpg.skip
+# Also skip GPG signing
+install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Dgpg.skip -B -V
 
 notifications:
   email: false
